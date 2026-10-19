@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulação de Formatação e Instalação do Windows</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="screen">
+
+  <!-- Desligado -->
+  <section class="stage off" data-name="Desligado">
+    <button class="pwr" data-next title="Ligar o computador">⏻</button>
+    <div class="offtxt">Clique para ligar o computador</div>
+  </section>
+
+  <!-- Inicialização (POST + boot pelo pendrive/DVD) -->
+  <section class="stage black" data-name="Inicialização" id="bootStage">
+    <div class="post" id="postText"></div>
+    <div id="loadWrap">
+      <div class="logo" style="--s:100px"><i></i><i></i><i></i><i></i></div>
+      <p style="margin-top:26px;font-size:20px;font-weight:300">Carregando arquivos de instalação…</p>
+      <div class="bar-outer" style="margin-top:22px"><div class="bar-inner" id="lfill"></div></div>
+    </div>
+  </section>
+
+  <!-- 0: Idioma -->
+  <section class="stage setup" data-name="Idioma">
+    <div class="win">
+      <div class="bar">Instalação do Sistema</div>
+      <div class="body">
+        <div style="display:flex;align-items:center;gap:20px;margin-bottom:10px"><div class="logo" style="--s:56px"><i></i><i></i><i></i><i></i></div><h1 style="margin:0">Instalação do Sistema</h1></div>
+        <div class="field"><label>Idioma a instalar:</label><div class="sel">Português (Brasil)</div></div>
+        <div class="field"><label>Formato de hora e moeda:</label><div class="sel">Português (Brasil)</div></div>
+        <div class="field"><label>Teclado ou método de entrada:</label><div class="sel">ABNT2</div></div>
+      </div>
+      <div class="foot"><button class="btn" data-next>Avançar</button></div>
+    </div>
+  </section>
+
+  <!-- 1: Instalar agora -->
+  <section class="stage setup big" data-name="Instalar">
+    <div class="logo" style="--s:110px"><i></i><i></i><i></i><i></i></div>
+    <h1>Pronto para começar</h1>
+    <button class="btn" data-next>Instalar agora</button>
+    <div class="small">Reparar o computador</div>
+  </section>
+
+  <!-- 2: Licença -->
+  <section class="stage setup" data-name="Licença">
+    <div class="win">
+      <div class="bar">Instalação do Sistema</div>
+      <div class="body">
+        <h1>Avisos e termos de licença aplicáveis</h1>
+        <div class="license">TERMOS DE LICENÇA PARA SOFTWARE<br><br>Estes termos de licença são um contrato entre você e o fabricante do software. Leia-os com atenção. Eles se aplicam ao software instalado neste computador, incluindo a mídia na qual você o recebeu, se houver.<br><br>Ao usar o software, você aceita estes termos. Se não os aceitar, não use o software; em vez disso, entre em contato com o fabricante para obter informações sobre a política de devolução.<br><br>1. INSTALAÇÃO E DIREITOS DE USO. Você pode instalar e usar uma cópia do software no computador licenciado.<br>2. ATUALIZAÇÕES. O software pode verificar e instalar atualizações automaticamente.<br>3. PRIVACIDADE. O uso de determinados recursos pode enviar dados ao fabricante conforme a política de privacidade.</div>
+        <div class="chk"><input type="checkbox" id="aceite"> <label for="aceite">Aceito os termos de licença</label></div>
+      </div>
+      <div class="foot"><button class="btn" data-next>Avançar</button></div>
+    </div>
+  </section>
+
+  <!-- 3: Tipo de instalação -->
+  <section class="stage setup" data-name="Tipo de instalação">
+    <div class="win">
+      <div class="bar">Instalação do Sistema</div>
+      <div class="body">
+        <h1>Que tipo de instalação você deseja?</h1>
+        <div class="opt"><b>Atualização: instalar e manter arquivos, configurações e aplicativos</b>Os arquivos, as configurações e os aplicativos são movidos para o sistema.</div>
+        <div class="opt sel2"><b>Personalizada: instalar somente o sistema (avançado)</b>Os arquivos, as configurações e os aplicativos não são movidos. Use para formatar e particionar o disco.</div>
+      </div>
+      <div class="foot"><button class="btn" data-next>Avançar</button></div>
+    </div>
+  </section>
+
+  <!-- 4: Particionamento / Formatação -->
+  <section class="stage setup" data-name="Formatação do disco" id="partStage">
+    <div class="win">
+      <div class="bar">Instalação do Sistema</div>
+      <div class="body">
+        <h1>Onde você deseja instalar o sistema?</h1>
+        <table id="ptable">
+          <thead><tr><th>Nome</th><th>Tamanho total</th><th>Espaço livre</th><th>Tipo</th></tr></thead>
+          <tbody>
+            <tr class="row" data-i="0"><td>Unidade 0 Partição 1: Recuperação</td><td>529,0 MB</td><td>82,0 MB</td><td>Recuperação</td></tr>
+            <tr class="row" data-i="1"><td>Unidade 0 Partição 2: Sistema</td><td>100,0 MB</td><td>68,0 MB</td><td>Sistema</td></tr>
+            <tr class="row" data-i="2"><td>Unidade 0 Partição 3</td><td>237,2 GB</td><td>89,4 GB</td><td>Primária</td></tr>
+          </tbody>
+        </table>
+        <div class="toolbar"><a id="aFormat">✔ Formatar</a><a id="aDelete">✖ Excluir</a><a id="aNew" class="dis">✚ Novo</a></div>
+        <div style="margin-top:14px;font-size:13px;color:#555" id="hint">Selecione a <b>Partição 3</b> e clique em <b>Formatar</b> para apagar todo o conteúdo antes de instalar.</div>
+      </div>
+      <div class="foot"><button class="btn" id="partNext" data-next>Avançar</button></div>
+      <div class="modal" id="modal"><div class="box"><p id="mtext"></p><div class="bar-outer" id="mbar" style="display:none"><div class="bar-inner" id="mfill"></div></div><div style="text-align:right;margin-top:16px" id="mbtns"><button class="btn" id="mok">OK</button> <button class="btn sec" id="mcancel">Cancelar</button></div></div></div>
+    </div>
+  </section>
+
+  <!-- 5: Instalando -->
+  <section class="stage setup" data-name="Instalando" id="instStage">
+    <div class="win">
+      <div class="bar">Instalação do Sistema</div>
+      <div class="body">
+        <h1>Instalando o sistema</h1>
+        <ul class="steps" id="steps">
+          <li><span class="ic">○</span>Copiando arquivos</li>
+          <li><span class="ic">○</span>Preparando arquivos para instalação</li>
+          <li><span class="ic">○</span>Instalando recursos</li>
+          <li><span class="ic">○</span>Instalando atualizações</li>
+          <li><span class="ic">○</span>Concluindo</li>
+        </ul>
+        <div class="bar-outer"><div class="bar-inner" id="ifill"></div></div>
+        <div class="pct" id="ipct">0%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6: Reinício -->
+  <section class="stage black" data-name="Reinício" id="rebootStage">
+    <div class="boot" id="bootText"></div>
+  </section>
+
+  <!-- 7: Preparando -->
+  <section class="stage" data-name="Preparando" style="background:#0a4a8f" id="prepStage">
+    <div class="logo" style="--s:90px"><i></i><i></i><i></i><i></i></div>
+    <div class="spin"><span></span><span></span><span></span><span></span><span></span></div>
+    <p id="prepText" style="margin-top:26px;font-size:20px;font-weight:300">Preparando dispositivos</p>
+    <p id="prepPct" style="margin-top:6px;color:#bcd8f5">0%</p>
+  </section>
+
+  <!-- 8: Região -->
+  <section class="stage oobe" data-name="Região">
+    <div class="win">
+      <div class="bar">Configuração inicial</div>
+      <div class="body">
+        <h1>Esta é a sua região?</h1>
+        <div class="list" id="regList">
+          <div>Argentina</div><div class="sel">Brasil</div><div>Chile</div><div>Estados Unidos</div><div>Paraguai</div><div>Portugal</div><div>Uruguai</div>
+        </div>
+      </div>
+      <div class="foot"><button class="btn" data-next>Sim</button></div>
+    </div>
+  </section>
+
+  <!-- 9: Usuário -->
+  <section class="stage oobe" data-name="Usuário">
+    <div class="win">
+      <div class="bar">Configuração inicial</div>
+      <div class="body">
+        <h1>Quem vai usar este computador?</h1>
+        <p style="color:#555;margin-bottom:12px">Digite o nome do usuário.</p>
+        <input class="txt" id="uname" value="Usuário" maxlength="20">
+      </div>
+      <div class="foot"><button class="btn" data-next>Avançar</button></div>
+    </div>
+  </section>
+
+  <!-- 10: Finalizando -->
+  <section class="stage" data-name="Finalizando" style="background:#0a4a8f" id="finStage">
+    <div class="spin"><span></span><span></span><span></span><span></span><span></span></div>
+    <p id="finText" style="margin-top:28px;font-size:26px;font-weight:300">Olá</p>
+    <p style="margin-top:8px;color:#bcd8f5">Isso pode levar alguns minutos</p>
+  </section>
+
+  <!-- 11: Desktop -->
+  <section class="stage desktop" data-name="Área de trabalho" id="deskStage">
+    <div class="icons">
+      <div class="icn"><div class="pic">🗑️</div>Lixeira</div>
+      <div class="icn"><div class="pic">🌐</div>Navegador</div>
+      <div class="icn"><div class="pic">📁</div>Documentos</div>
+    </div>
+    <div class="welcome"><h1 id="wtext">Bem-vindo</h1><p>Instalação concluída com sucesso ✔</p></div>
+    <div class="taskbar">
+      <div class="tb"><div class="logo" style="--s:20px;gap:2px"><i></i><i></i><i></i><i></i></div></div>
+      <div class="tb">🔍</div><div class="tb">🌐</div><div class="tb">📁</div><div class="tb">⚙️</div>
+      <div class="tray"><span id="clk">00:00</span><br><span id="dt"></span></div>
+    </div>
+  </section>
+
+</div>
+
+<div id="dots"></div>
+<div id="hud">
+  <button id="bPrev">◀ Anterior</button>
+  <button id="bNext">Próximo ▶</button>
+  <button id="bAuto">▶ Automático (A)</button>
+  <button id="bFull">Tela cheia (F)</button>
+  <button id="bReset">Reiniciar (R)</button>
+  <button id="bHide">✕ Ocultar barra (H)</button>
+  <span style="align-self:center">Setas ← → ou Enter para navegar</span>
+</div>
+<button id="hudShow">☰ Mostrar barra (H)</button>
+
+<script src="js/main.js"></script>
+</body>
+</html>
