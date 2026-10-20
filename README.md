@@ -40,6 +40,7 @@ Também funciona hospedado no GitHub Pages: em *Settings → Pages*, escolha a b
 | `→` / `Enter` | Próxima etapa |
 | `←` | Etapa anterior |
 | `A` | Liga ou desliga o **modo automático**, que avança sozinho e simula a formatação |
+| `L` | Liga ou desliga o **loop**: no modo automático, ao chegar na área de trabalho a simulação recomeça do início após 6 segundos |
 | `F` | Tela cheia |
 | `R` | Reinicia a simulação |
 | `H` | **Oculta ou mostra** a barra de controles |
